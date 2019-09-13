@@ -195,10 +195,17 @@ namespace Laboratorio_4_OOP_201902
 
         public void FirstHand()
         {
+            for (int i=0; i<10; i++)
+            {
+                Random rnd = new Random();
+                int randomCardId = rnd.Next(0, deck.Cards.Count);
+                DrawCard(randomCardId);
+                deck.DestroyCard(randomCardId);
+            }
             /*Debe obtener 10 cartas aleatorias del mazo y asignarlas a la mano.
             Utilice el metodo DrawCard con 10 numeros de id aleatorios.
             */
-            throw new NotImplementedException();
+            
         }
 
         public void ChooseCaptainCard(SpecialCard captainCard)

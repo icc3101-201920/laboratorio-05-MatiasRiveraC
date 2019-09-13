@@ -33,8 +33,17 @@ namespace Laboratorio_4_OOP_201902
         }
         public void Shuffle()
         {
+            List<Card> tempCards = new List<Card>();
+            for (int i = 0; i < cards.Count; i++)
+            {
+                Random rnd = new Random();
+                int randomCardId = rnd.Next(0, Cards.Count);
+                tempCards.Add(cards[randomCardId]);
+                cards.RemoveAt(randomCardId);
+            }
+            cards = tempCards;
             //Reordenar el mazo de manera aleatoria (barajar).
-            throw new NotImplementedException();
+            
         }
     }
 }
