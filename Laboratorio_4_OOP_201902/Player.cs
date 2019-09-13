@@ -151,22 +151,46 @@ namespace Laboratorio_4_OOP_201902
                         -El metodo AddCard solo requiere la carta.
                 3- Elimine la carta de la mano. 
              */
-            throw new NotImplementedException();
+            
         }
         public void ChangeCard(int cardId)
         {
-            /* Debe cambiar la carta en la posicion cardId de la mano por una carta aleatoria del mazo.
-                1- Defina si la carta a cambiar de la mano es CombatCard o SpecialCard. Luego (Esto permite cambiar la referencia):
-                        1.1- Asigne una variable a la carta a cambiar de la mano, ejemplo, CombatCard card = hand.Cards[cardId]
-                        1.2- Cree una CombatCard o SpecialCard (dependiendo del caso) con los valores de la carta de la mano a cambiar.
-                2- Elimine la carta de la mano
-                3- Implemente Random
-                4- Cree una variable que obtenga un numero aleatorio dentro del total de cartas del mazo.
-                5- Obtenga la carta aleatoria del mazo (puede utilizar el método DrawCard) y cree una nueva carta con sus valores. Agreguela a la mano. 
-                6- Elimine la carta aleatoria escogida del mazo.
-                7- Agregue la carta original de la mano al mazo.
-            */
-            throw new NotImplementedException();
+            
+            if (hand.Cards[cardId].Type == EnumType.melee || hand.Cards[cardId].Type == EnumType.range || hand.Cards[cardId].Type == EnumType.longRange)
+            {
+                CombatCard card = (CombatCard)hand.Cards[cardId];
+                hand.Cards.RemoveAt(cardId);
+                Random rnd = new Random();
+                int randomCardId = rnd.Next(0, deck.Cards.Count);
+                DrawCard(randomCardId);
+                deck.Cards.RemoveAt(randomCardId);
+                deck.AddCard(new CombatCard(card.Name, card.Type, card.Effect, card.AttackPoints, card.Hero));
+
+            }
+            else if (hand.Cards[cardId].Type != EnumType.None)
+            {
+                SpecialCard card = (SpecialCard)hand.Cards[cardId];
+                hand.Cards.RemoveAt(cardId);
+                Random rnd = new Random();
+                int randomCardId = rnd.Next(0, deck.Cards.Count);
+                DrawCard(randomCardId);
+                deck.Cards.RemoveAt(randomCardId);
+                deck.AddCard(new SpecialCard(card.Name, card.Type, card.Effect));
+
+            }
+            
+                /* Debe cambiar la carta en la posicion cardId de la mano por una carta aleatoria del mazo.
+                    1- Defina si la carta a cambiar de la mano es CombatCard o SpecialCard. Luego (Esto permite cambiar la referencia):
+                            1.1- Asigne una variable a la carta a cambiar de la mano, ejemplo, CombatCard card = hand.Cards[cardId]
+                            1.2- Cree una CombatCard o SpecialCard (dependiendo del caso) con los valores de la carta de la mano a cambiar.
+                    2- Elimine la carta de la mano
+                    3- Implemente Random
+                    4- Cree una variable que obtenga un numero aleatorio dentro del total de cartas del mazo.
+                    5- Obtenga la carta aleatoria del mazo (puede utilizar el método DrawCard) y cree una nueva carta con sus valores. Agreguela a la mano. 
+                    6- Elimine la carta aleatoria escogida del mazo.
+                    7- Agregue la carta original de la mano al mazo.
+                */
+          
         }
 
         public void FirstHand()
