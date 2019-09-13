@@ -137,8 +137,9 @@ namespace Laboratorio_4_OOP_201902
                 {
                     Board.AddCard(new SpecialCard(card.Name, card.Type, card.Effect),id,buffRow);
                 }
-                hand.DestroyCard(cardId);
+                
             }
+            hand.DestroyCard(cardId);
             /*Realice el mismo procedimiento que en DrawCard, solo que ahora es desde Hand a Board.
               En caso de CombatCard siga el mismo procedimiento, recuerde que el método AddCard de Board requiere el id del usuario.
               En caso de SpecialCard:
@@ -151,7 +152,7 @@ namespace Laboratorio_4_OOP_201902
                         -El metodo AddCard solo requiere la carta.
                 3- Elimine la carta de la mano. 
              */
-            
+
         }
         public void ChangeCard(int cardId)
         {
