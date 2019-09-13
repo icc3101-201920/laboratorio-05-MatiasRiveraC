@@ -106,18 +106,39 @@ namespace Laboratorio_4_OOP_201902
         //Metodos
         public void DrawCard(int cardId = 0)
         {
-            /*
-            1- Definir si la carta a robada del mazo es CombatCard o SpecialCard
-            2- Luego deberá agregar la carta robada al mazo. En este paso debe respetar el tipo por referencia, para esto:
-                2.1- Asigne una variable a la carta robada del mazo, ejemplo, CombatCard card = deck.Cards[cardId]
-                2.2- Cree una CombatCard o SpecialCard (dependiendo del caso) con los valores de la carta del mazo.
-                2.3- Agregue la nueva carta a la mano
-            Elimine la carta del mazo.
-            Hint: Utilice los métodos ya creados en Hand y Deck (AddCard y DestroyCard), no se preocupe de la implementacion de estos aun.*/
-            throw new NotImplementedException();
+            if (deck.Cards[cardId].Type == EnumType.melee || deck.Cards[cardId].Type == EnumType.range || deck.Cards[cardId].Type == EnumType.longRange)
+            {
+                CombatCard card = (CombatCard)deck.Cards[cardId];
+                hand.AddCard(new CombatCard(card.Name,card.Type,card.Effect,card.AttackPoints,card.Hero));
+            }
+            else if(deck.Cards[cardId].Type != EnumType.None)
+            {
+                SpecialCard card = (SpecialCard)deck.Cards[cardId];
+                hand.AddCard(new SpecialCard(card.Name, card.Type,card.Effect));
+            }
+            
         }
         public void PlayCard(int cardId, EnumType buffRow = EnumType.None)
         {
+
+            if (hand.Cards[cardId].Type == EnumType.melee || hand.Cards[cardId].Type == EnumType.range || hand.Cards[cardId].Type == EnumType.longRange)
+            {
+                CombatCard card = (CombatCard)hand.Cards[cardId];
+                Board.AddCard(new CombatCard(card.Name, card.Type, card.Effect, card.AttackPoints, card.Hero));
+            }
+            else if (hand.Cards[cardId].Type != EnumType.None)
+            {
+                SpecialCard card = (SpecialCard)hand.Cards[cardId];
+                if (card.Type == EnumType.weather)
+                {
+                    Board.AddCard(new SpecialCard(card.Name, card.Type, card.Effect));
+                }
+                else
+                {
+                    Board.AddCard(new SpecialCard(card.Name, card.Type, card.Effect),id,buffRow);
+                }
+                hand.DestroyCard(cardId);
+            }
             /*Realice el mismo procedimiento que en DrawCard, solo que ahora es desde Hand a Board.
               En caso de CombatCard siga el mismo procedimiento, recuerde que el método AddCard de Board requiere el id del usuario.
               En caso de SpecialCard:
